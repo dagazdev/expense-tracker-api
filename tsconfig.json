@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./build/.tsbuildinfo",
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "outDir": "./build",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "paths": {
+      "@api/*": [
+        "./src/api/*"
+      ],
+      "@config/*": [
+        "./src/config/*"
+      ],
+      "@database/*": [
+        "./src/database/*"
+      ]
+    },
+    "skipLibCheck": true,
+    "strict": true,
+  }
+}
