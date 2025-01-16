@@ -1,8 +1,8 @@
 import Fastify from "fastify";
 import { SERVER_PORT } from "@config/server";
 import { isDevelopment } from "@config/globals";
-import routes from "@api/routes";
 import { PostgresDataSource } from "@database/data-source";
+import routes from "@api/routes";
 
 const server = Fastify({
   logger: isDevelopment() && { transport: { target: "pino-pretty" } },
@@ -22,7 +22,7 @@ server.addHook("onClose", (_, done) => {
   });
 });
 
-server.register(routes);
+server.register(routes, { prefix: "api" });
 
 export async function start() {
   try {
