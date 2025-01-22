@@ -1,39 +1,12 @@
 import { FastifyInstance } from "fastify";
+import z from "zod";
 import { createUser, getUsers, updateUser } from "./controller";
+import { createUserSchema, updateUserSchema } from "./validations";
 
 function routes(server: FastifyInstance) {
   server.get("/", getUsers);
-  server.post(
-    "/",
-    // properties types seems to not work
-    // {
-    //   schema: {
-    //     body: {
-    //       type: "object",
-    //       properties: {
-    //         name: { type: "number" },
-    //         password: { type: "string" },
-    //       },
-    //       required: ["name", "password"],
-    //     },
-    //   },
-    // },
-    createUser
-  );
-  server.put(
-    "/:user",
-    {
-      schema: {
-        params: {
-          type: "object",
-          properties: {
-            user: { type: "number" },
-          },
-        },
-      },
-    },
-    updateUser
-  );
+  server.post("/", { schema: createUserSchema }, createUser);
+  server.put("/:user", { schema: updateUserSchema }, updateUser);
 }
 
 export default routes;
