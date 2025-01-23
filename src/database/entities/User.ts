@@ -20,7 +20,7 @@ class User {
   @CreateDateColumn()
   created_at!: Date;
 
-  @UpdateDateColumn({ nullable: true })
+  @UpdateDateColumn()
   updated_at!: Date;
 }
 

@@ -46,20 +46,10 @@ export async function updateUser(
     });
   }
 
-  let dirty = false;
+  userToUpdate.name = newName || userToUpdate.name;
+  userToUpdate.password = newPass || userToUpdate.password;
 
-  if (newName || newPass) {
-    userToUpdate.name = newName || userToUpdate.name;
-    userToUpdate.password = newPass || userToUpdate.password;
-    dirty = true;
-  }
+  const updatedUser = await userRepository.save(userToUpdate);
 
-  if (dirty) {
-    userToUpdate.updated_at = new Date();
-    const updatedUser = await userRepository.save(userToUpdate);
-
-    return reply.send(updatedUser);
-  }
-
-  return reply.send(userToUpdate);
+  return reply.send(updatedUser);
 }

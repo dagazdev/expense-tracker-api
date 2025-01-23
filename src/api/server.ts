@@ -2,12 +2,12 @@ import Fastify from "fastify";
 import {
   serializerCompiler,
   validatorCompiler,
-  ZodTypeProvider,
 } from "fastify-type-provider-zod";
 import { SERVER_PORT } from "@config/server";
 import { isDevelopment } from "@config/globals";
 import { PostgresDataSource } from "@database/data-source";
 import routes from "@api/modules/user/routes";
+import errorHandler from "@api/errors/error-handler";
 
 const server = Fastify({
   logger: isDevelopment() && { transport: { target: "pino-pretty" } },
@@ -15,6 +15,8 @@ const server = Fastify({
 
 server.setValidatorCompiler(validatorCompiler);
 server.setSerializerCompiler(serializerCompiler);
+
+server.setErrorHandler(errorHandler);
 
 server.addHook("onReady", (done) => {
   PostgresDataSource.initialize().then(() => {
