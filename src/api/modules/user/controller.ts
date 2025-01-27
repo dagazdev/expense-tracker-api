@@ -39,11 +39,7 @@ export async function updateUser(
   });
 
   if (!userToUpdate) {
-    return reply.send({
-      statusCode: 404,
-      error: "Not Found",
-      message: `'user' with property 'user' value '${userId}' not found`,
-    });
+    return reply.notFound();
   }
 
   userToUpdate.name = newName || userToUpdate.name;

@@ -9,6 +9,7 @@
     "migrations:run": "typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts"
   },
   "dependencies": {
+    "@fastify/sensible": "^6.0.2",
     "concurrently": "^9.1.2",
     "dotenv": "^16.4.7",
     "fastify": "^5.2.1",

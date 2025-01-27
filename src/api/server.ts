@@ -3,6 +3,7 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from "fastify-type-provider-zod";
+import sensible from "@fastify/sensible";
 import { SERVER_PORT } from "@config/server";
 import { isDevelopment } from "@config/globals";
 import { PostgresDataSource } from "@database/data-source";
@@ -12,6 +13,8 @@ import errorHandler from "@api/errors/error-handler";
 const server = Fastify({
   logger: isDevelopment() && { transport: { target: "pino-pretty" } },
 });
+
+server.register(sensible);
 
 server.setValidatorCompiler(validatorCompiler);
 server.setSerializerCompiler(serializerCompiler);
