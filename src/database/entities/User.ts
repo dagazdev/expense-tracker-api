@@ -4,7 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  JoinColumn,
 } from "typeorm";
+import AccessToken from "./AccessToken";
 
 @Entity({ name: "users" })
 class User {
@@ -16,6 +19,10 @@ class User {
 
   @Column()
   password!: string;
+
+  @OneToMany(() => AccessToken, (accessToken) => accessToken.user)
+  @JoinColumn({ name: "user_id" })
+  tokens!: AccessToken[];
 
   @CreateDateColumn()
   created_at!: Date;
