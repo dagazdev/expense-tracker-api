@@ -51,20 +51,22 @@ const errorHandler: FastifyInstance["errorHandler"] = function (
     return reply.send(fstValidationErrorToResponse(error));
   }
 
-  this.log.error(
-    {
-      request: {
-        method: request.method,
-        url: request.url,
-        headers: request.headers,
-        body: request.body,
-        params: request.params,
-        query: request.query,
+  if (!error.statusCode || error.statusCode >= 500) {
+    this.log.error(
+      {
+        request: {
+          method: request.method,
+          url: request.url,
+          headers: request.headers,
+          body: request.body,
+          params: request.params,
+          query: request.query,
+        },
+        error,
       },
-      error,
-    },
-    "Unhandled error occurred."
-  );
+      "Unhandled error occurred."
+    );
+  }
 
   return reply.code(error.statusCode || 500).send({
     error: error.name,

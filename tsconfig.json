@@ -20,6 +20,9 @@
       ],
       "@database/*": [
         "./src/database/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
       ]
     },
     "skipLibCheck": true,

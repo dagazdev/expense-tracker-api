@@ -14,11 +14,11 @@ class AccessToken {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column("char", { length: 64 })
+  @Column("varchar")
   token!: string;
 
-  @Column("int")
-  user_id!: number;
+  @Column("int", { name: "user_id" })
+  userId!: number;
 
   @ManyToOne(() => User, (user) => user.tokens)
   @JoinColumn({ name: "user_id" })

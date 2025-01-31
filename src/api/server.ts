@@ -7,8 +7,9 @@ import sensible from "@fastify/sensible";
 import { SERVER_PORT } from "@config/server";
 import { isDevelopment } from "@config/globals";
 import { PostgresDataSource } from "@database/data-source";
-import routes from "@api/modules/user/routes";
 import errorHandler from "@api/errors/error-handler";
+import userRoutes from "@api/modules/user/routes";
+import authRoutes from "@api/modules/auth/routes";
 
 const server = Fastify({
   logger: isDevelopment() && { transport: { target: "pino-pretty" } },
@@ -35,7 +36,8 @@ server.addHook("onClose", (_, done) => {
   });
 });
 
-server.register(routes, { prefix: "api/users" });
+server.register(userRoutes, { prefix: "api/users" });
+server.register(authRoutes, { prefix: "api" });
 
 export async function start() {
   try {

@@ -21,7 +21,6 @@ class User {
   password!: string;
 
   @OneToMany(() => AccessToken, (accessToken) => accessToken.user)
-  @JoinColumn({ name: "user_id" })
   tokens!: AccessToken[];
 
   @CreateDateColumn()

@@ -22,8 +22,7 @@ export class CreateAccessTokensTable1738179121133
           },
           {
             name: "token",
-            type: "char",
-            length: "64",
+            type: "varchar",
           },
           {
             name: "user_id",
