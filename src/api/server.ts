@@ -8,8 +8,17 @@ import { SERVER_PORT } from "@config/server";
 import { isDevelopment } from "@config/globals";
 import { PostgresDataSource } from "@database/data-source";
 import errorHandler from "@api/errors/error-handler";
+import bearerAuth from "@fastify/bearer-auth";
+import authenticateBearer from "@lib/authenticate-bearer";
 import userRoutes from "@api/modules/user/routes";
 import authRoutes from "@api/modules/auth/routes";
+import User from "@database/entities/User";
+
+declare module "fastify" {
+  interface FastifyRequest {
+    user?: User;
+  }
+}
 
 const server = Fastify({
   logger: isDevelopment() && { transport: { target: "pino-pretty" } },
@@ -36,8 +45,20 @@ server.addHook("onClose", (_, done) => {
   });
 });
 
-server.register(userRoutes, { prefix: "api/users" });
+server.decorateRequest<User | undefined>("user", undefined);
+
+// public routes
 server.register(authRoutes, { prefix: "api" });
+
+// protected routes must be register
+// after the hook
+server.register((server) => {
+  server.register(bearerAuth, {
+    keys: [],
+    auth: authenticateBearer,
+  });
+  server.register(userRoutes, { prefix: "api/users" });
+});
 
 export async function start() {
   try {
