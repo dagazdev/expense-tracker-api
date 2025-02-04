@@ -10,7 +10,6 @@ import { PostgresDataSource } from "@database/data-source";
 import errorHandler from "@api/errors/error-handler";
 import bearerAuth from "@fastify/bearer-auth";
 import authenticateBearer from "@lib/authenticate-bearer";
-import userRoutes from "@api/modules/user/routes";
 import authRoutes from "@api/modules/auth/routes";
 import User from "@database/entities/User";
 import movementRoutes from "@api/modules/movements/routes";
@@ -63,7 +62,6 @@ server.register((server) => {
     }),
   });
 
-  server.register(userRoutes, { prefix: "api/users" });
   server.register(movementRoutes, { prefix: "api/movements" });
 });
 
