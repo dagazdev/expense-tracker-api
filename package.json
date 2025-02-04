@@ -6,7 +6,7 @@
     "dev": "concurrently \"tsc -w\" \"tsc-alias -w\" \"node --watch build/index.js\"",
     "build": "tsc --build && tsc-alias",
     "typeorm": "typeorm-ts-node-commonjs",
-    "migrations:run": "typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts"
+    "migrate": "typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts"
   },
   "dependencies": {
     "@fastify/bearer-auth": "^10.0.2",
