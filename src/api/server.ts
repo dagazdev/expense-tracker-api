@@ -13,6 +13,7 @@ import authenticateBearer from "@lib/authenticate-bearer";
 import userRoutes from "@api/modules/user/routes";
 import authRoutes from "@api/modules/auth/routes";
 import User from "@database/entities/User";
+import movementRoutes from "@api/modules/movements/routes";
 
 declare module "fastify" {
   interface FastifyRequest {
@@ -61,7 +62,9 @@ server.register((server) => {
       message: err.message,
     }),
   });
+
   server.register(userRoutes, { prefix: "api/users" });
+  server.register(movementRoutes, { prefix: "api/movements" });
 });
 
 export async function start() {
