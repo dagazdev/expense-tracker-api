@@ -16,7 +16,7 @@ import movementRoutes from "@api/modules/movements/routes";
 
 declare module "fastify" {
   interface FastifyRequest {
-    user?: User;
+    user: User;
   }
 }
 

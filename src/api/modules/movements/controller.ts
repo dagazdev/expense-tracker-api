@@ -1,16 +1,14 @@
 import { PostgresDataSource } from "@database/data-source";
 import Movement from "@database/entities/Movement";
-import User from "@database/entities/User";
 import { MovementFieldTypeType } from "@database/types";
 import { FastifyReply, FastifyRequest } from "fastify";
 
-const userRepo = PostgresDataSource.getRepository(User);
 const movementRepo = PostgresDataSource.getRepository(Movement);
 
 export async function getAll(request: FastifyRequest, reply: FastifyReply) {
   const movements = await movementRepo.find({
     where: {
-      userId: request.user!.id,
+      userId: request.user.id,
     },
   });
 
@@ -36,7 +34,7 @@ export async function createOne(
   movement.type = type;
   movement.description = description || "";
   movement.value = value;
-  movement.user = request.user!;
+  movement.user = request.user;
 
   await movementRepo.save(movement);
 
@@ -68,13 +66,13 @@ export async function updateOne(
 
   const movement = await movementRepo.findOneBy({
     id: request.params.id,
-    userId: request.user!.id,
+    userId: request.user.id,
   });
 
   if (!movement) {
     return reply.notFound(
       `Movement with id ${request.params.id} for the User with id ${
-        request.user!.id
+        request.user.id
       } was not found`
     );
   }
@@ -97,13 +95,13 @@ export async function deleteOne(
 ) {
   const result = await movementRepo.delete({
     id: request.params.id,
-    userId: request.user!.id,
+    userId: request.user.id,
   });
 
   if (!result.affected || result.affected === 0) {
     return reply.notFound(
       `Movement with id ${request.params.id} for the User with id ${
-        request.user!.id
+        request.user.id
       } was not found`
     );
   }
