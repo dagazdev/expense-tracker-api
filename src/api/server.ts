@@ -56,6 +56,10 @@ server.register((server) => {
   server.register(bearerAuth, {
     keys: [],
     auth: authenticateBearer,
+    errorResponse: (err) => ({
+      error: "UnauthorizedError",
+      message: err.message,
+    }),
   });
   server.register(userRoutes, { prefix: "api/users" });
 });
