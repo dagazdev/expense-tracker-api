@@ -5,7 +5,7 @@
     "module": "NodeNext",
     "moduleResolution": "nodenext",
     "outDir": "./build",
-    "rootDir": "./src",
+    "rootDir": "./",
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -28,6 +28,9 @@
     "skipLibCheck": true,
     "strict": true,
   },
+  "include": [
+    "./src/**/*"
+  ],
   "ts-node": {
     "require": [
       "tsconfig-paths/register"
