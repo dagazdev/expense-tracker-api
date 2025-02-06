@@ -1,11 +1,12 @@
-import { PostgresDataSource } from "@database/data-source";
 import AccessToken from "@database/entities/AccessToken";
 import User from "@database/entities/User";
+import AccessTokenRepository from "@database/repositories/AccessTokenRepository";
+import UserRepository from "@database/repositories/UserRepository";
 import createToken from "@lib/create-token";
 import { FastifyReply, FastifyRequest } from "fastify";
 
-const userRepo = PostgresDataSource.getRepository(User);
-const tokenRepo = PostgresDataSource.getRepository(AccessToken);
+const userRepo = new UserRepository();
+const tokenRepo = new AccessTokenRepository();
 
 export async function signUp(
   request: FastifyRequest<{ Body: { name: string; password: string } }>,
