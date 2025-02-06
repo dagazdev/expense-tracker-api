@@ -1,9 +1,9 @@
-import { PostgresDataSource } from "@database/data-source";
 import Movement from "@database/entities/Movement";
+import MovementRepository from "@database/repositories/MovementRepository";
 import { MovementFieldTypeType } from "@database/types";
 import { FastifyReply, FastifyRequest } from "fastify";
 
-const movementRepo = PostgresDataSource.getRepository(Movement);
+const movementRepo = new MovementRepository();
 
 export async function getAll(request: FastifyRequest, reply: FastifyReply) {
   const movements = await movementRepo.find({
@@ -71,9 +71,7 @@ export async function updateOne(
 
   if (!movement) {
     return reply.notFound(
-      `Movement with id ${request.params.id} for the User with id ${
-        request.user.id
-      } was not found`
+      `Movement with id ${request.params.id} for the User with id ${request.user.id} was not found`
     );
   }
 
@@ -100,9 +98,7 @@ export async function deleteOne(
 
   if (!result.affected || result.affected === 0) {
     return reply.notFound(
-      `Movement with id ${request.params.id} for the User with id ${
-        request.user.id
-      } was not found`
+      `Movement with id ${request.params.id} for the User with id ${request.user.id} was not found`
     );
   }
 
