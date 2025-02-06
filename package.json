@@ -3,7 +3,7 @@
   "main": "build/index.js",
   "scripts": {
     "start": "node build/index.js",
-    "dev": "concurrently \"tsc -w\" \"tsc-alias -w\" \"node --watch build/index.js\"",
+    "dev": "concurrently \"tsc -w\" \"tsc-alias -w\" \"node --watch build/index.js\" --kill-others",
     "build": "tsc --build && tsc-alias",
     "typeorm": "typeorm-ts-node-commonjs",
     "migrate": "typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts",
