@@ -5,6 +5,8 @@
     "start": "node build/index.js",
     "dev": "concurrently \"tsc -w\" \"tsc-alias -w\" \"node --watch build/index.js\"",
     "build": "tsc --build && tsc-alias",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "typeorm": "typeorm-ts-node-commonjs",
     "migrate": "typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts"
   },
@@ -22,7 +24,11 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.10.5",
+    "jest": "^29.7.0",
+    "sqlite3": "^5.1.7",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",

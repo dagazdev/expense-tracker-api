@@ -13,20 +13,22 @@
     "baseUrl": "./",
     "paths": {
       "@api/*": [
-        "./src/api/*"
+        "src/api/*"
       ],
       "@config/*": [
-        "./src/config/*"
+        "src/config/*"
       ],
       "@database/*": [
-        "./src/database/*"
+        "src/database/*"
       ],
       "@lib/*": [
-        "./src/lib/*"
+        "src/lib/*"
       ]
     },
-    "skipLibCheck": true,
     "strict": true,
+    "removeComments": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true
   },
   "ts-node": {
     "require": [
