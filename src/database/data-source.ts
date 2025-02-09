@@ -5,7 +5,11 @@ import {
   DB_PORT,
   DB_USERNAME,
 } from "@config/database";
+import path from "node:path";
 import { DataSource } from "typeorm";
+
+const entitiesGlob = path.resolve(__dirname, "entities/*.{ts,js}");
+const migrationsGlob = path.resolve(__dirname, "migrations/*.{ts,js}");
 
 export const PostgresDataSource = new DataSource({
   type: "postgres",
@@ -14,8 +18,8 @@ export const PostgresDataSource = new DataSource({
   port: DB_PORT,
   username: DB_USERNAME,
   password: DB_PASSWORD,
-  entities: [__dirname + "/entities/*.{ts,js}"],
-  migrations: [__dirname + "/migrations/*.{ts,js}"],
+  entities: [entitiesGlob],
+  migrations: [migrationsGlob],
   synchronize: false,
   logging: true,
 });
